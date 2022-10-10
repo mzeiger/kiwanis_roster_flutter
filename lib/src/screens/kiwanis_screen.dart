@@ -13,6 +13,8 @@ class KiwanisScreen extends StatefulWidget {
 class KiwanisScreenState extends State<KiwanisScreen> {
   List<dynamic> _posts = [];
 
+  TextEditingController searchMemberController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -21,8 +23,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
 
   void _fetchPosts() {
     http
-        .get(Uri.parse(
-        'https://monumenthillkiwanis.org/ionic/roster_json_2.php'))
+        .get(Uri.parse('https://monumenthillkiwanis.org/ionic/roster_json_2.php'))
         .then((res) {
       // res.body is a String. json.decode changes it to objects
       final posts = json.decode(res.body);
@@ -40,8 +41,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
       textInput = textInput.toLowerCase();
       // print(_posts);
       var filteredPosts = _posts.where((post) {
-        final ln =
-        post['lastname'].toString().toLowerCase().startsWith(textInput);
+        final ln = post['lastname'].toString().toLowerCase().startsWith(textInput);
         return ln;
       }).toList();
       setState(() {
@@ -53,25 +53,40 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        TextField(
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.all(15.0),
-            labelText: 'Search by last name',
-            suffixIcon: Icon(Icons.search),
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(children: [
+          TextField(
+            controller: searchMemberController,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(15.0),
+              labelText: 'Search by last name',
+              prefixIcon: const Icon(Icons.search),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              suffixIcon: searchMemberController.text.isEmpty
+                  ? null
+                  : IconButton(
+                      onPressed: () {
+                        searchMemberController.clear();
+                        _textChanged('');
+                      },
+                      icon: const Icon(Icons.clear)),
+            ),
+            onChanged: (string) => _textChanged(string),
           ),
-          onChanged: (string) => _textChanged(string),
-        ),
-        Expanded(
-          child: ListView.builder(
-              itemCount: _posts.length,
-              itemBuilder: (context, index) {
-                return cardTemplate(_posts[index]);
-              }
-            //children: _posts.map((post) => cardTemplate(post)).toList(),
+          Expanded(
+            child: ListView.builder(
+                itemCount: _posts.length,
+                itemBuilder: (context, index) {
+                  return cardTemplate(_posts[index]);
+                }
+                //children: _posts.map((post) => cardTemplate(post)).toList(),
+                ),
           ),
-        ),
-      ]),
+        ]),
+      ),
       appBar: AppBar(
         title: const Text('Kiwanis Roster'),
         centerTitle: true,

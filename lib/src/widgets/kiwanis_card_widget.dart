@@ -4,8 +4,14 @@ Widget cardTemplate(post) {
   const SPACE = "  "; // 2 spaces
   const double FONTSIZE = 15;
 
+  Color cardBackgroundColor = const Color(0xFFADD8E6);
+  Color nameColor = const Color(0xFF00008B);
+  Color deletedNameColor = Colors.red;
+  Color allLabels = const Color(0xFF0048B2);
+  Color allData = const Color(0xFF006400);
+
   return Card(
-    color: const Color(0xFFd1d1d1),
+    color: cardBackgroundColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
     ),
@@ -16,64 +22,72 @@ Widget cardTemplate(post) {
         post['block'] == "0"
             ? Text(
           "$SPACE ${post['lastname']}, ${post['firstname']}",
-          style: const TextStyle(
-              color: Colors.blue,
+          style: TextStyle(
+              color: nameColor,
               fontSize: FONTSIZE + 5,
               fontWeight: FontWeight.bold),
         )
             : Text(
           "$SPACE ${post['lastname']}, ${post['firstname']}",
-          style: const TextStyle(
-              color: Colors.red,
+          style: TextStyle(
+              color: deletedNameColor,
               fontSize: FONTSIZE + 5,
               fontWeight: FontWeight.bold,
               decoration: TextDecoration.lineThrough),
         ),
-        Row(
-          children: [
-            const Text(
-              "$SPACE Spouse:$SPACE",
-              style: TextStyle(color: Colors.green, fontSize: FONTSIZE),
-            ),
-            Text(
-              "${post['cb_spousename']}",
-              style: const TextStyle(color: Colors.blue, fontSize: FONTSIZE),
-            ),
-          ],
-        ),
-        Text(
-          "$SPACE ${post['email']}",
-          style: const TextStyle(color: Colors.cyan, fontSize: FONTSIZE),
-        ),
         Text(
           "$SPACE ${post['cb_address']}",
-          style: const TextStyle(color: Colors.blue, fontSize: FONTSIZE),
+          style: TextStyle(color: allData, fontSize: FONTSIZE),
         ),
         Text(
           "$SPACE ${post['cb_city']}, ${post['cb_state']} ${post['cb_zipcode']}",
-          style: const TextStyle(color: Colors.blue, fontSize: FONTSIZE),
+          style: TextStyle(color: allData, fontSize: FONTSIZE),
         ),
         Row(
           children: [
-            const Text(
-              "$SPACE Home Phone:$SPACE",
-              style: TextStyle(color: Colors.green, fontSize: FONTSIZE),
+            Text(
+              "$SPACE Email:$SPACE",
+              style: TextStyle(color: allLabels, fontSize: FONTSIZE),
             ),
             Text(
-              "${post['cb_homephone']}",
-              style: const TextStyle(color: Colors.blue, fontSize: FONTSIZE),
+              "${post['email']}",
+              style: TextStyle(color: allData, fontSize: FONTSIZE),
             ),
           ],
         ),
         Row(
           children: [
-            const Text(
+            Text(
+              "$SPACE Home Phone:$SPACE",
+              style: TextStyle(color: allLabels, fontSize: FONTSIZE),
+            ),
+            Text(
+              "${post['cb_homephone']}",
+              style: TextStyle(color: allData, fontSize: FONTSIZE),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Text(
               "$SPACE Cell Phone:$SPACE",
-              style: TextStyle(color: Colors.green, fontSize: FONTSIZE),
+              style: TextStyle(color: allLabels, fontSize: FONTSIZE),
             ),
             Text(
               "${post['cb_mobilephone']}",
-              style: const TextStyle(color: Colors.blue, fontSize: FONTSIZE),
+              style: TextStyle(color: allData, fontSize: FONTSIZE),
+            ),
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              "$SPACE Spouse:$SPACE",
+              style: TextStyle(color: allLabels, fontSize: FONTSIZE),
+            ),
+            Text(
+              "${post['cb_spousename']}",
+              style: TextStyle(color: allData, fontSize: FONTSIZE),
             ),
           ],
         ),
