@@ -157,7 +157,7 @@ Widget cardTemplate(post) {
                         decoration: TextDecoration.underline),
                   ),
                   onTap: () =>
-                      launchUrl(Uri(scheme: 'tel', path: "${post['cb_mobliephone']}")),
+                      launchUrl(Uri(scheme: 'tel', path: "${post['cb_mobilephone']}")),
                 ),
               ],
             ),
