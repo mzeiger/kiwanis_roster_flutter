@@ -32,4 +32,13 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    ...other stuff
+    <queries>
+        ... other intents
+        <!-- If your app sends emails -->
+        <intent>
+            <action android:name="android.intent.action.SEND" />
+            <data android:mimeType="*/*" />
+        </intent>
+    </queries>
 </manifest>
