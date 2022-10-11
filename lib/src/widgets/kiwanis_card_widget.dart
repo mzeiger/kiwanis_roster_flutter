@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 Widget cardTemplate(post) {
   const double FONTSIZE = 15;
@@ -17,6 +16,8 @@ Widget cardTemplate(post) {
   return Padding(
     padding: const EdgeInsets.all(3.0),
     child: Card(
+      elevation: 5,
+      shadowColor: Colors.grey,
       color: cardBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -48,49 +49,50 @@ Widget cardTemplate(post) {
                   ),
                 ),
           InkWell(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "${post['cb_address']}",
-                          style: TextStyle(
-                              color: allData,
-                              fontSize: FONTSIZE,
-                              decoration: TextDecoration.underline),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "${post['cb_city']}, ${post['cb_state']} ${post['cb_zipcode']}",
-                          style: TextStyle(
-                              color: allData,
-                              fontSize: FONTSIZE,
-                              decoration: TextDecoration.underline),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "${post['cb_address']}",
+                        style: TextStyle(
+                            color: allData,
+                            fontSize: FONTSIZE,
+                            decoration: TextDecoration.underline),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        "${post['cb_city']}, ${post['cb_state']} ${post['cb_zipcode']}",
+                        style: TextStyle(
+                            color: allData,
+                            fontSize: FONTSIZE,
+                            decoration: TextDecoration.underline),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              onTap: () {
-                String urlAddress =
-                    "${post['cb_address']},${post['cb_city']},${post['cb_state']}${post['cb_zipcode']}";
-                Uri uri = Uri(
-                    scheme: 'https',
-                    host: 'maps.google.com',
-                    queryParameters: {'q': urlAddress});
-                launchUrl(uri);
-              }),
+            ),
+            onTap: () {
+              String urlAddress =
+                  "${post['cb_address']},${post['cb_city']},${post['cb_state']}${post['cb_zipcode']}";
+              Uri uri = Uri(
+                  scheme: 'https',
+                  host: 'maps.google.com',
+                  queryParameters: {'q': urlAddress});
+              launchUrl(uri);
+            },
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
-              children: [
+              children: <Widget>[
                 Text(
                   "Email:",
                   style: TextStyle(color: allLabels, fontSize: FONTSIZE),
@@ -105,7 +107,9 @@ Widget cardTemplate(post) {
                       decoration: TextDecoration.underline,
                     ),
                   ),
-                  onTap: () => launchUrl(Uri(scheme: 'mailto', path: "${post['email']}")),
+                  onTap: () => launchUrl(
+                    Uri(scheme: 'mailto', path: "${post['email']}"),
+                  ),
                 ),
               ],
             ),
@@ -113,7 +117,7 @@ Widget cardTemplate(post) {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
-              children: [
+              children: <Widget>[
                 Text(
                   "Home Phone:",
                   style: TextStyle(color: allLabels, fontSize: FONTSIZE),
@@ -136,7 +140,7 @@ Widget cardTemplate(post) {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Row(
-              children: [
+              children: <Widget>[
                 Text(
                   "Cell Phone:",
                   style: TextStyle(
@@ -162,7 +166,7 @@ Widget cardTemplate(post) {
           Padding(
             padding: const EdgeInsets.only(left: 15, bottom: 10),
             child: Row(
-              children: [
+              children: <Widget>[
                 Text(
                   "Spouse:",
                   style: TextStyle(color: allLabels, fontSize: FONTSIZE),

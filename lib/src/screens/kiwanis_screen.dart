@@ -39,7 +39,6 @@ class KiwanisScreenState extends State<KiwanisScreen> {
       FocusManager.instance.primaryFocus?.unfocus();
     } else {
       textInput = textInput.toLowerCase();
-      // print(_posts);
       var filteredPosts = _posts.where((post) {
         final ln = post['lastname'].toString().toLowerCase().startsWith(textInput);
         return ln;
@@ -55,40 +54,40 @@ class KiwanisScreenState extends State<KiwanisScreen> {
     return Scaffold(
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 5),
-            child: TextField(
-              controller: searchMemberController,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(15.0),
-                labelText: 'Search by last name',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: TextField(
+                controller: searchMemberController,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(15.0),
+                  labelText: 'Search by last name',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  suffixIcon: searchMemberController.text.isEmpty
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            searchMemberController.clear();
+                            _textChanged('');
+                          },
+                          icon: const Icon(Icons.clear)),
                 ),
-                suffixIcon: searchMemberController.text.isEmpty
-                    ? null
-                    : IconButton(
-                        onPressed: () {
-                          searchMemberController.clear();
-                          _textChanged('');
-                        },
-                        icon: const Icon(Icons.clear)),
+                onChanged: (string) => _textChanged(string),
               ),
-              onChanged: (string) => _textChanged(string),
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: _posts.length,
-                itemBuilder: (context, index) {
-                  return cardTemplate(_posts[index]);
-                }
-                //children: _posts.map((post) => cardTemplate(post)).toList(),
-                ),
-          ),
-        ]),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: _posts.length,
+                  itemBuilder: (context, index) {
+                    return cardTemplate(_posts[index]);
+                  }),
+            ),
+          ],
+        ),
       ),
       appBar: AppBar(
         title: const Text('Kiwanis Roster'),
