@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 Widget cardTemplate(post) {
-
   const double FONTSIZE = 15;
 
   Color cardBackgroundColor = const Color(0xFFADD8E6);
@@ -81,13 +80,11 @@ Widget cardTemplate(post) {
               ),
               onTap: () {
                 String urlAddress =
-                    "?q=${post['cb_address']}, ${post['cb_city']}, ${post['cb_state']} ${post['cb_zipcode']}";
+                    "${post['cb_address']},${post['cb_city']},${post['cb_state']}${post['cb_zipcode']}";
                 Uri uri = Uri(
                     scheme: 'https',
-                    path: urlAddress,
                     host: 'maps.google.com',
                     queryParameters: {'q': urlAddress});
-                print(uri);
                 launchUrl(uri);
               }),
           Padding(
