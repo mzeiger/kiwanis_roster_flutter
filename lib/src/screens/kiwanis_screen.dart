@@ -53,48 +53,51 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Scrollbar(
-        thickness: 15,
-        radius: const Radius.circular(10),
-        interactive: true,
-        thumbVisibility: true,
-        controller: scrollController,
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(bottom: 5),
-                child: TextField(
-                  controller: searchMemberController,
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15.0),
-                    labelText: 'Search by last name',
-                    prefixIcon: const Icon(Icons.search),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    suffixIcon: searchMemberController.text.isEmpty
-                        ? null
-                        : IconButton(
-                            onPressed: () {
-                              searchMemberController.clear();
-                              _textChanged('');
-                            },
-                            icon: const Icon(Icons.clear)),
+      body: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: TextField(
+                controller: searchMemberController,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(15.0),
+                  labelText: 'Search by last name',
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                  onChanged: (string) => _textChanged(string),
+                  suffixIcon: searchMemberController.text.isEmpty
+                      ? null
+                      : IconButton(
+                          onPressed: () {
+                            searchMemberController.clear();
+                            _textChanged('');
+                          },
+                          icon: const Icon(Icons.clear)),
                 ),
+                onChanged: (string) => _textChanged(string),
               ),
-              Expanded(
+            ),
+            Expanded(
+              child: Scrollbar(
+                interactive: true,
+                thumbVisibility: true,
+                thickness: 10,
+                trackVisibility: true,
+                radius: const Radius.circular(10),
+                controller: scrollController,
                 child: ListView.builder(
                     itemCount: _posts.length,
+                    controller: scrollController,
+                    shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return cardTemplate(_posts[index]);
                     }),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       appBar: AppBar(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget cardTemplate(post) {
@@ -14,7 +13,7 @@ Widget cardTemplate(post) {
   Color linkData = const Color(0xFF006400);
 
   return Padding(
-    padding: const EdgeInsets.all(3.0),
+    padding: const EdgeInsets.fromLTRB(0, 0, 10, 5),
     child: Card(
       elevation: 5,
       shadowColor: Colors.grey,
