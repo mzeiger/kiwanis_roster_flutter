@@ -1,7 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwanis_roster_flutter/src/screens/kiwanis_screen.dart';
-import 'package:kiwanis_roster_flutter/src/widgets/splash_screen.dart';
 
 void main() => runApp(KiwanisApp());
 
@@ -9,7 +8,7 @@ class KiwanisApp extends StatelessWidget {
   KiwanisApp({super.key});
   final String appTitle = 'Kiwanis Roster';
 
-  TextStyle _textStyle = TextStyle(
+  final TextStyle _textStyle = TextStyle(
       fontSize: 20,
       color: Colors.blue,
       fontWeight: FontWeight.bold,
