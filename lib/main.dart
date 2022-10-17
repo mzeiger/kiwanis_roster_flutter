@@ -8,6 +8,7 @@ class KiwanisApp extends StatelessWidget {
   KiwanisApp({super.key});
   final String appTitle = 'Kiwanis Roster';
 
+
   final TextStyle _textStyle = TextStyle(
       fontSize: 20,
       color: Colors.blue,
