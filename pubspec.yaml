@@ -37,6 +37,7 @@ dependencies:
   flutter_launcher_icons:
   font_awesome_flutter:
   gap:
+  animated_splash_screen:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -45,13 +46,17 @@ dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/MHKLogo.png"
+  assets:
+    - assets/images/
+  image_path: "assets/images/mhklogo.png"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
+flutter_native_splash:
+  color: "#9ae79a"
+  image: assets/images/MHKLogo.png
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

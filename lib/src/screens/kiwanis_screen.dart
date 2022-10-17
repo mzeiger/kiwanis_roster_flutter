@@ -22,6 +22,13 @@ class KiwanisScreenState extends State<KiwanisScreen> {
     _fetchPosts();
   }
 
+  @override
+  void dispose() {
+    scrollController.dispose();
+    searchMemberController.dispose();
+    super.dispose();
+  }
+
   void _fetchPosts() {
     http
         .get(Uri.parse('https://monumenthillkiwanis.org/ionic/roster_json_2.php'))
@@ -82,12 +89,12 @@ class KiwanisScreenState extends State<KiwanisScreen> {
             ),
             Expanded(
               child: Scrollbar(
+                controller: scrollController,
                 interactive: true,
                 thumbVisibility: true,
                 thickness: 10,
                 trackVisibility: true,
                 radius: const Radius.circular(10),
-                controller: scrollController,
                 child: ListView.builder(
                     itemCount: _posts.length,
                     controller: scrollController,
