@@ -8,18 +8,11 @@ TextStyle _textStyle = TextStyle(
 );
 
 Widget mySplashScreen() {
-  return Center(
-    child: Column(
-      children: [
-        Text(
-          'Monument Hill Kiwanis',
-          style: _textStyle,
-        ),
-        Text(
-          'Kiwanis Roster',
-          style: _textStyle,
-        ),
-      ],
-    ),
+  return Column(
+    children: [
+      Image.asset(
+        'assets/images/MHKLogo.png',height: 700,
+      ),
+    ],
   );
 }
