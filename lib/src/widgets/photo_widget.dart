@@ -11,6 +11,7 @@ Widget PhotoWidget(BuildContext context) {
       ],
     ),
     actions: <Widget>[
+
       new ElevatedButton(
         onPressed: () {
           Navigator.of(context).pop();
