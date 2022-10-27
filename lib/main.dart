@@ -8,7 +8,6 @@ class KiwanisApp extends StatelessWidget {
   KiwanisApp({super.key});
   final String appTitle = 'Kiwanis Roster';
 
-
   final TextStyle _textStyle = TextStyle(
       fontSize: 20,
       color: Colors.blue,
@@ -23,7 +22,7 @@ class KiwanisApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: AnimatedSplashScreen(
-        duration: 5000,
+        duration: 2500,
         backgroundColor: Colors.white,
         splashTransition: SplashTransition.fadeTransition,
         animationDuration: Duration(milliseconds: 2000),
@@ -50,7 +49,7 @@ class KiwanisApp extends StatelessWidget {
             ),
           );
         }),
-        nextScreen: const KiwanisScreen(),
+        nextScreen: KiwanisScreen(context),
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../widgets/kiwanis_card_widget.dart';
 
 class KiwanisScreen extends StatefulWidget {
-  const KiwanisScreen({super.key});
+  const KiwanisScreen(BuildContext context, {super.key});
 
   @override // arrow function always returns
   KiwanisScreenState createState() => KiwanisScreenState();
@@ -61,7 +61,10 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        margin: const EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 10,
+        ),
         child: Column(
           children: <Widget>[
             Padding(
@@ -100,7 +103,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
                     controller: scrollController,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      return cardTemplate(_posts[index]);
+                      return cardTemplate(context, _posts[index]);
                     }),
               ),
             ),
@@ -113,7 +116,10 @@ class KiwanisScreenState extends State<KiwanisScreen> {
         elevation: 10,
         backgroundColor: Colors.white54,
         titleTextStyle: const TextStyle(
-            color: Colors.blue, fontSize: 30, fontWeight: FontWeight.bold),
+          color: Colors.blue,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
