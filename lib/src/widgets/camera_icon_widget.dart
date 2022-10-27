@@ -3,7 +3,7 @@ import 'package:kiwanis_roster_flutter/src/screens/kiwanis_photo_screen.dart';
 
 Widget CameraIcon(
     BuildContext context, String avatarUrl, String firstName, String lastName) {
-  // void showAvatar(String avatarURL) {}
+
   return Container(
     padding: EdgeInsets.only(right: 5),
     child: SizedBox.fromSize(

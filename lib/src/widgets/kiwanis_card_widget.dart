@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:kiwanis_roster_flutter/src/widgets/camera_icon_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+
 Widget cardTemplate(BuildContext context, post) {
   const double FONTSIZE = 15;
 
