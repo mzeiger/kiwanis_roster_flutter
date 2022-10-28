@@ -32,7 +32,6 @@ class KiwanisApp extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Expanded(
-                  flex: 12,
                   child: Image.asset(
                     'assets/images/MHKLogo.png',
                   ),
@@ -44,7 +43,7 @@ class KiwanisApp extends StatelessWidget {
                 Text(
                   'Kiwanis Roster',
                   style: _textStyle,
-                )
+                ),
               ],
             ),
           );
