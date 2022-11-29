@@ -29,9 +29,10 @@ Widget CameraIcon(
               children: <Widget>[
                 Icon(
                   Icons.camera,
+                  size: 20,
                 ),
                 Text(
-                  'Show Photo',
+                  'Photo',
                 ),
               ],
             ),

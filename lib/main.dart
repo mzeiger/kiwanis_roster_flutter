@@ -1,4 +1,3 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:kiwanis_roster_flutter/src/screens/kiwanis_screen.dart';
 
@@ -21,35 +20,7 @@ class KiwanisApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AnimatedSplashScreen(
-        duration: 2500,
-        backgroundColor: Colors.white,
-        splashTransition: SplashTransition.fadeTransition,
-        animationDuration: Duration(milliseconds: 2000),
-        splash: //mySplashScreen(),
-            Builder(builder: (context) {
-          return Center(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Image.asset(
-                    'assets/images/MHKLogo.png',
-                  ),
-                ),
-                Text(
-                  'Monument Hill Kiwanis',
-                  style: _textStyle,
-                ),
-                Text(
-                  'Kiwanis Roster',
-                  style: _textStyle,
-                ),
-              ],
-            ),
-          );
-        }),
-        nextScreen: KiwanisScreen(context),
-      ),
+      home: KiwanisScreen(context),
     );
   }
 }

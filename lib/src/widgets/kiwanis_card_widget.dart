@@ -3,7 +3,6 @@ import 'package:gap/gap.dart';
 import 'package:kiwanis_roster_flutter/src/widgets/camera_icon_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 Widget cardTemplate(BuildContext context, post) {
   const double FONTSIZE = 15;
 
@@ -38,7 +37,7 @@ Widget cardTemplate(BuildContext context, post) {
       margin: const EdgeInsets.fromLTRB(5, 5, 5, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
+        children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(left: 15, top: 5),
             child: Row(
@@ -180,13 +179,14 @@ Widget cardTemplate(BuildContext context, post) {
             child: Row(
               children: <Widget>[
                 Text(
-                  "Spouse:",
+                  "Spouse: ",
                   style: TextStyle(color: allLabels, fontSize: FONTSIZE),
                 ),
-                const Gap(4),
                 Text(
                   "${post['cb_spousename']}",
-                  style: TextStyle(color: allData, fontSize: FONTSIZE),
+                  style: TextStyle(
+                    color: allData,
+                  ),
                 ),
               ],
             ),
