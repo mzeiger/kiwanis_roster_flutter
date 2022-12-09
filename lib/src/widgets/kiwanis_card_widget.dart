@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:kiwanis_roster_flutter/src/widgets/camera_icon_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,6 +40,28 @@ Widget cardTemplate(BuildContext context, post) {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
+            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+            child: CircleAvatar(
+              backgroundColor: cardBackgroundColor,
+              radius: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  20,
+                ),
+                child: post['avatar'] != null
+                    ? Image.network(
+                        'https://monumenthillkiwanis.org/mhk/images/comprofiler/' +
+                            post['avatar'],
+                        // fit: BoxFit.cover,
+                      )
+                    : Icon(
+                        Icons.person_2,
+                        size: 60,
+                      ),
+              ),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.only(left: 15, top: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.values.first,
@@ -47,11 +70,11 @@ Widget cardTemplate(BuildContext context, post) {
                   "${post['lastname']}, ${post['firstname']}",
                   style: post['block'] == "0" ? activeTextStyle : deletedTextStyle,
                 ),
-                Spacer(flex: 20),
-                post['avatar'] != null
-                    ? CameraIcon(
-                        context, post['avatar'], post['firstname'], post['lastname'])
-                    : Text(''),
+                // Spacer(flex: 20),
+                // post['avatar'] != null
+                //     ? CameraIcon(
+                //         context, post['avatar'], post['firstname'], post['lastname'])
+                //     : Text(''),
               ],
             ),
           ),

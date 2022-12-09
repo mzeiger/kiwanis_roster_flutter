@@ -4,7 +4,7 @@ import 'dart:convert';
 import '../widgets/kiwanis_card_widget.dart';
 
 class KiwanisScreen extends StatefulWidget {
-  const KiwanisScreen(BuildContext context, {super.key});
+  const KiwanisScreen(BuildContext context);
 
   @override // arrow function always returns
   KiwanisScreenState createState() => KiwanisScreenState();
