@@ -12,6 +12,7 @@ class KiwanisScreen extends StatefulWidget {
 
 class KiwanisScreenState extends State<KiwanisScreen> {
   List<dynamic> _posts = [];
+  List<dynamic> _originalPosts = [];
 
   TextEditingController searchMemberController = TextEditingController();
   ScrollController scrollController = ScrollController();
@@ -37,17 +38,20 @@ class KiwanisScreenState extends State<KiwanisScreen> {
       final posts = json.decode(res.body);
       // if using roster_json_2.php then must get ['members']
       // if using roster_json.php then don't use ['members']
+      _originalPosts = posts['members'];
       setState(() => _posts = posts['members']);
     });
   }
 
   void _textChanged(String textInput) {
     if (textInput.isEmpty) {
-      setState(() => _fetchPosts());
+      setState(() {
+        _posts = _originalPosts;
+      }); // => _fetchPosts());
       FocusManager.instance.primaryFocus?.unfocus();
     } else {
       textInput = textInput.toLowerCase();
-      var filteredPosts = _posts.where((post) {
+      var filteredPosts = _originalPosts.where((post) {  ///_posts.where((post) {
         final ln = post['lastname'].toString().toLowerCase().startsWith(textInput);
         return ln;
       }).toList();

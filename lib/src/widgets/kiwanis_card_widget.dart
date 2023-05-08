@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
-import 'package:kiwanis_roster_flutter/src/widgets/camera_icon_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Widget cardTemplate(BuildContext context, post) {
@@ -55,7 +53,7 @@ Widget cardTemplate(BuildContext context, post) {
                         // fit: BoxFit.cover,
                       )
                     : Icon(
-                        Icons.person_2,
+                        Icons.person,
                         size: 60,
                       ),
               ),
