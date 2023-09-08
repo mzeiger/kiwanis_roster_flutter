@@ -7,12 +7,6 @@ class KiwanisApp extends StatelessWidget {
   KiwanisApp({super.key});
   final String appTitle = 'Kiwanis Roster';
 
-  final TextStyle _textStyle = TextStyle(
-      fontSize: 20,
-      color: Colors.blue,
-      fontWeight: FontWeight.bold,
-      fontFamily: AutofillHints.birthdayDay);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

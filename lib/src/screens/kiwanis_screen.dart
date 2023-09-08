@@ -30,6 +30,12 @@ class KiwanisScreenState extends State<KiwanisScreen> {
     super.dispose();
   }
 
+  Future _doFetchPosts() async {
+    FocusScope.of(context).unfocus();  // Remove virtual keyboard
+    searchMemberController.clear();
+   _fetchPosts();
+  }
+
   void _fetchPosts() {
     http
         .get(Uri.parse('https://monumenthillkiwanis.org/ionic/roster_json_2.php'))
@@ -102,13 +108,16 @@ class KiwanisScreenState extends State<KiwanisScreen> {
                 thickness: 10,
                 trackVisibility: true,
                 radius: const Radius.circular(10),
-                child: ListView.builder(
-                    itemCount: _posts.length,
-                    controller: scrollController,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return cardTemplate(context, _posts[index]);
-                    }),
+                child: RefreshIndicator(
+                  onRefresh: _doFetchPosts,
+                  child: ListView.builder(
+                      itemCount: _posts.length,
+                      controller: scrollController,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return cardTemplate(context, _posts[index]);
+                      }),
+                ),
               ),
             ),
           ],
