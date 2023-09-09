@@ -31,13 +31,13 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   }
 
   Future _doFetchPosts() async {
-    FocusScope.of(context).unfocus();  // Remove virtual keyboard
+    FocusScope.of(context).unfocus(); // Remove virtual keyboard
     searchMemberController.clear();
-   _fetchPosts();
+    _fetchPosts();
   }
 
-  void _fetchPosts() {
-    http
+  Future<void> _fetchPosts() async {
+    await http
         .get(Uri.parse('https://monumenthillkiwanis.org/ionic/roster_json_2.php'))
         .then((res) {
       // res.body is a String. json.decode changes it to objects
@@ -57,7 +57,8 @@ class KiwanisScreenState extends State<KiwanisScreen> {
       FocusManager.instance.primaryFocus?.unfocus();
     } else {
       textInput = textInput.toLowerCase();
-      var filteredPosts = _originalPosts.where((post) {  ///_posts.where((post) {
+      var filteredPosts = _originalPosts.where((post) {
+        ///_posts.where((post) {
         final ln = post['lastname'].toString().toLowerCase().startsWith(textInput);
         return ln;
       }).toList();
