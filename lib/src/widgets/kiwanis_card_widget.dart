@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+// replaced `gap` package usage with `SizedBox` to avoid compatibility issues
 import 'package:url_launcher/url_launcher.dart';
 
 Widget cardTemplate(BuildContext context, post) {
@@ -39,25 +39,25 @@ Widget cardTemplate(BuildContext context, post) {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-            child: CircleAvatar(
-              backgroundColor: cardBackgroundColor,
-              radius: 40,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(
-                  20,
-                ),
-                child: post['avatar'] != null
-                    ? Image.network(
-                        'https://monumenthillkiwanis.org/mhk/images/comprofiler/' +
-                            post['avatar'],
-                        // fit: BoxFit.cover,
-                      )
-                    : Icon(
-                        Icons.person,
-                        size: 60,
-                      ),
-              ),
-            ),
+            // child: CircleAvatar(
+            //   backgroundColor: cardBackgroundColor,
+            //   radius: 40,
+            //   child: ClipRRect(
+            //     borderRadius: BorderRadius.circular(
+            //       20,
+            //     ),
+            //     child: post['avatar'] != null
+            //         ? Image.network(
+            //             'https://monumenthillkiwanis.org/mhk/images/comprofiler/' +
+            //                 post['avatar'],
+            //             // fit: BoxFit.cover,
+            //           )
+            //         : Icon(
+            //             Icons.person,
+            //             size: 60,
+            //           ),
+            //   ),
+            // ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, top: 5),
@@ -66,7 +66,8 @@ Widget cardTemplate(BuildContext context, post) {
               children: <Widget>[
                 Text(
                   "${post['lastname']}, ${post['firstname']}",
-                  style: post['block'] == "0" ? activeTextStyle : deletedTextStyle,
+                  style:
+                      post['block'] == "0" ? activeTextStyle : deletedTextStyle,
                 ),
                 // Spacer(flex: 20),
                 // post['avatar'] != null
@@ -126,7 +127,7 @@ Widget cardTemplate(BuildContext context, post) {
                   "Email:",
                   style: TextStyle(color: allLabels, fontSize: FONTSIZE),
                 ),
-                const Gap(4),
+                const SizedBox(width: 4),
                 InkWell(
                   splashColor: Colors.blue,
                   child: Text(
@@ -152,7 +153,7 @@ Widget cardTemplate(BuildContext context, post) {
                   "Home Phone:",
                   style: TextStyle(color: allLabels, fontSize: FONTSIZE),
                 ),
-                const Gap(4),
+                const SizedBox(width: 4),
                 InkWell(
                   splashColor: Colors.blue,
                   child: Text(
@@ -162,8 +163,8 @@ Widget cardTemplate(BuildContext context, post) {
                         fontSize: FONTSIZE,
                         decoration: TextDecoration.underline),
                   ),
-                  onTap: () =>
-                      launchUrl(Uri(scheme: 'tel', path: "${post['cb_homephone']}")),
+                  onTap: () => launchUrl(
+                      Uri(scheme: 'tel', path: "${post['cb_homephone']}")),
                 ),
               ],
             ),
@@ -179,7 +180,7 @@ Widget cardTemplate(BuildContext context, post) {
                     fontSize: FONTSIZE,
                   ),
                 ),
-                const Gap(4),
+                const SizedBox(width: 4),
                 InkWell(
                   splashColor: Colors.blue,
                   child: Text(
@@ -189,8 +190,8 @@ Widget cardTemplate(BuildContext context, post) {
                         fontSize: FONTSIZE,
                         decoration: TextDecoration.underline),
                   ),
-                  onTap: () =>
-                      launchUrl(Uri(scheme: 'tel', path: "${post['cb_mobilephone']}")),
+                  onTap: () => launchUrl(
+                      Uri(scheme: 'tel', path: "${post['cb_mobilephone']}")),
                 ),
               ],
             ),
