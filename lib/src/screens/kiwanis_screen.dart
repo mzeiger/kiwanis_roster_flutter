@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+
+import '../services/roster_cache.dart';
 import '../widgets/kiwanis_card_widget.dart';
 
 class KiwanisScreen extends StatefulWidget {
@@ -11,8 +14,13 @@ class KiwanisScreen extends StatefulWidget {
 }
 
 class KiwanisScreenState extends State<KiwanisScreen> {
+  static const _rosterUrl =
+      'https://monumenthillkiwanis.org/ionic/roster_json_2.php';
+
+  final RosterCache _rosterCache = RosterCache();
   List<dynamic> _posts = [];
   List<dynamic> _originalPosts = [];
+  bool _isOnline = true;
 
   TextEditingController searchMemberController = TextEditingController();
   ScrollController scrollController = ScrollController();
@@ -33,19 +41,40 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   Future _doFetchPosts() async {
     FocusScope.of(context).unfocus(); // Remove virtual keyboard
     searchMemberController.clear();
-    _fetchPosts();
+    await _fetchPosts();
   }
 
   Future<void> _fetchPosts() async {
-    await http
-        .get(Uri.parse('https://monumenthillkiwanis.org/ionic/roster_json_2.php'))
-        .then((res) {
-      // res.body is a String. json.decode changes it to objects
-      final posts = json.decode(res.body);
-      // if using roster_json_2.php then must get ['members']
-      // if using roster_json.php then don't use ['members']
-      _originalPosts = posts['members'];
-      setState(() => _posts = posts['members']);
+    try {
+      // Add timestamp to bypass service worker caching for API calls
+      final url = '$_rosterUrl?t=${DateTime.now().millisecondsSinceEpoch}';
+      final res =
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
+      if (res.statusCode != 200) {
+        throw Exception('HTTP ${res.statusCode}');
+      }
+      await _rosterCache.save(res.body);
+      _applyRosterJson(res.body, isOnline: true);
+    } catch (_) {
+      final cached = await _rosterCache.load();
+      if (cached != null) {
+        _applyRosterJson(cached, isOnline: false);
+      } else if (mounted) {
+        setState(() => _isOnline = false);
+      }
+    }
+  }
+
+  void _applyRosterJson(String body, {required bool isOnline}) {
+    // res.body is a String. json.decode changes it to objects
+    final posts = json.decode(body);
+    // if using roster_json_2.php then must get ['members']
+    // if using roster_json.php then don't use ['members']
+    _originalPosts = posts['members'];
+    if (!mounted) return;
+    setState(() {
+      _posts = posts['members'];
+      _isOnline = isOnline;
     });
   }
 
@@ -59,7 +88,8 @@ class KiwanisScreenState extends State<KiwanisScreen> {
       textInput = textInput.toLowerCase();
       var filteredPosts = _originalPosts.where((post) {
         ///_posts.where((post) {
-        final ln = post['lastname'].toString().toLowerCase().startsWith(textInput);
+        final ln =
+            post['lastname'].toString().toLowerCase().startsWith(textInput);
         return ln;
       }).toList();
       setState(() {
@@ -128,12 +158,22 @@ class KiwanisScreenState extends State<KiwanisScreen> {
         title: const Text('Kiwanis Roster'),
         centerTitle: true,
         elevation: 10,
-        backgroundColor: Colors.white54,
+        backgroundColor: const Color.fromARGB(72, 220, 231, 238),
         titleTextStyle: const TextStyle(
-          color: Colors.blue,
+          color: Colors.lightBlue,
           fontSize: 30,
           fontWeight: FontWeight.bold,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: Icon(
+              _isOnline ? Icons.wifi : Icons.wifi_off,
+              color: _isOnline ? Colors.blue : Colors.grey,
+              size: 28,
+            ),
+          ),
+        ],
       ),
     );
   }
