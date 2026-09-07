@@ -39,25 +39,33 @@ Widget cardTemplate(BuildContext context, post) {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-            // child: CircleAvatar(
-            //   backgroundColor: cardBackgroundColor,
-            //   radius: 40,
-            //   child: ClipRRect(
-            //     borderRadius: BorderRadius.circular(
-            //       20,
-            //     ),
-            //     child: post['avatar'] != null
-            //         ? Image.network(
-            //             'https://monumenthillkiwanis.org/mhk/images/comprofiler/' +
-            //                 post['avatar'],
-            //             // fit: BoxFit.cover,
-            //           )
-            //         : Icon(
-            //             Icons.person,
-            //             size: 60,
-            //           ),
-            //   ),
-            // ),
+            child: CircleAvatar(
+              backgroundColor: cardBackgroundColor,
+              radius: 40,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  20,
+                ),
+                child: post['avatar'] != null
+                    ? Image.network(
+                        'https://monumenthillkiwanis.org/wp-mhk/member_images/' +
+                            post['avatar'],
+                        fit: BoxFit.cover,
+                        width: 80,
+                        height: 80,
+                        webHtmlElementStrategy: WebHtmlElementStrategy.prefer,
+                        errorBuilder: (context, error, stackTrace) => Icon(
+                          Icons.person,
+                          size: 60,
+                          color: nameColor,
+                        ),
+                      )
+                    : const Icon(
+                        Icons.person,
+                        size: 60,
+                      ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, top: 5),
