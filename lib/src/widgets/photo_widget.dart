@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-Widget PhotoWidget(BuildContext context) {
-  return new AlertDialog(
+Widget photoWidget(BuildContext context) {
+  return AlertDialog(
     title: const Text('Popup example'),
-    content: new Column(
+    content: const Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -11,7 +11,7 @@ Widget PhotoWidget(BuildContext context) {
       ],
     ),
     actions: <Widget>[
-      new ElevatedButton(
+      ElevatedButton(
         onPressed: () {
           Navigator.of(context).pop();
         },

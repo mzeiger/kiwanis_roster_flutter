@@ -1,11 +1,11 @@
 # This file tracks properties of this Flutter project.
 # Used by Flutter tool to assess capabilities and perform upgrades etc.
 #
-# This file should be version controlled.
+# This file should be version controlled and should not be manually edited.
 
 version:
-  revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-  channel: master
+  revision: "19074d12f7eaf6a8180cd4036a430c1d76de904e"
+  channel: "stable"
 
 project_type: app
 
@@ -13,26 +13,11 @@ project_type: app
 migration:
   platforms:
     - platform: root
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-    - platform: android
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-    - platform: ios
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-    - platform: linux
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-    - platform: macos
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
+      create_revision: 19074d12f7eaf6a8180cd4036a430c1d76de904e
+      base_revision: 19074d12f7eaf6a8180cd4036a430c1d76de904e
     - platform: web
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-    - platform: windows
-      create_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
-      base_revision: d40f6d1e681f17e3b7b7290afb4c9b4175b976e7
+      create_revision: 19074d12f7eaf6a8180cd4036a430c1d76de904e
+      base_revision: 19074d12f7eaf6a8180cd4036a430c1d76de904e
 
   # User provided section
 

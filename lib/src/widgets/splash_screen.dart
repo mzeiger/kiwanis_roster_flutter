@@ -8,12 +8,19 @@ import 'package:flutter/material.dart';
 // );
 
 Widget mySplashScreen() {
-  return Column(
-    children: [
-      Image.asset(
-        'assets/images/MHKLogo.png',
-        height: 700,
-      ),
-    ],
+  return LayoutBuilder(
+    builder: (context, constraints) {
+      final size = constraints.biggest;
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: size.width * 0.8,
+          maxHeight: size.height * 0.8,
+        ),
+        child: Image.asset(
+          'assets/images/MHKLogo.png',
+          fit: BoxFit.contain,
+        ),
+      );
+    },
   );
 }

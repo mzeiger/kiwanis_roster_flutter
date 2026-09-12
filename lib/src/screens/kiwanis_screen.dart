@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import '../services/roster_cache.dart';
 import '../widgets/kiwanis_card_widget.dart';
 
 class KiwanisScreen extends StatefulWidget {
-  const KiwanisScreen(BuildContext context);
+  const KiwanisScreen(BuildContext context, {super.key});
 
   @override // arrow function always returns
   KiwanisScreenState createState() => KiwanisScreenState();
@@ -24,6 +25,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
 
   TextEditingController searchMemberController = TextEditingController();
   ScrollController scrollController = ScrollController();
+  Timer? _keyboardDismissTimer;
 
   @override
   void initState() {
@@ -35,6 +37,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   void dispose() {
     scrollController.dispose();
     searchMemberController.dispose();
+    _keyboardDismissTimer?.cancel();
     super.dispose();
   }
 
@@ -79,6 +82,14 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   }
 
   void _textChanged(String textInput) {
+    _keyboardDismissTimer?.cancel();
+    if (textInput.isNotEmpty) {
+      _keyboardDismissTimer = Timer(const Duration(milliseconds: 800), () {
+        if (mounted) {
+          FocusManager.instance.primaryFocus?.unfocus();
+        }
+      });
+    }
     if (textInput.isEmpty) {
       setState(() {
         _posts = _originalPosts;
@@ -101,6 +112,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         margin: const EdgeInsets.symmetric(
           horizontal: 10,
@@ -112,6 +124,7 @@ class KiwanisScreenState extends State<KiwanisScreen> {
               padding: const EdgeInsets.only(bottom: 5),
               child: TextField(
                 controller: searchMemberController,
+                textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(15.0),
                   labelText: 'Search by last name',
@@ -129,6 +142,10 @@ class KiwanisScreenState extends State<KiwanisScreen> {
                           icon: const Icon(Icons.clear)),
                 ),
                 onChanged: (string) => _textChanged(string),
+                onEditingComplete: () =>
+                    FocusManager.instance.primaryFocus?.unfocus(),
+                onSubmitted: (_) =>
+                    FocusManager.instance.primaryFocus?.unfocus(),
               ),
             ),
             Expanded(
@@ -142,11 +159,20 @@ class KiwanisScreenState extends State<KiwanisScreen> {
                 child: RefreshIndicator(
                   onRefresh: _doFetchPosts,
                   child: ListView.builder(
+                      keyboardDismissBehavior:
+                          ScrollViewKeyboardDismissBehavior.onDrag,
                       itemCount: _posts.length,
                       controller: scrollController,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return cardTemplate(context, _posts[index]);
+                        final post = _posts[index];
+                        final postKey = ValueKey(
+                          '${post['id'] ?? post['avatar'] ?? post['lastname']}_$index',
+                        );
+                        return KeyedSubtree(
+                          key: postKey,
+                          child: cardTemplate(context, post),
+                        );
                       }),
                 ),
               ),
